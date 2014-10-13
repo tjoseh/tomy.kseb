@@ -1,0 +1,138 @@
+{% extends "base.html" %}
+
+{% block page-content %} 
+{% block extrastyle %}
+<link href="/static/css/datepicker3.css" rel="stylesheet">
+
+{% endblock %}
+
+ <div class="container-fluid">
+
+     <!-- Page Heading -->
+     <div class="row">
+         <div class="col-lg-12">
+             <h1 class="page-header">
+                 KSEB Dashboard <small>Payroll  & Tax</small>
+             </h1>
+             <ol class="breadcrumb">
+                 <li class="active">
+                     <i class="fa fa-dashboard"></i> Dashboard
+                 </li>
+             </ol>
+         </div>
+     </div>
+     <!-- /.row -->
+
+     <div class="row">
+         <div class="col-lg-12">
+             <div class="alert alert-info alert-dismissable">
+                 <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+                 <i class="fa fa-info-circle"></i>  <strong>Like SB Admin?</strong> Try out <a href="http://startbootstrap.com/template-overviews/sb-admin-2" class="alert-link">SB Admin 2</a> for additional features!
+             </div>
+         </div>
+     </div>
+     <!-- /.row -->
+
+     <div class="row">
+         
+     </div>
+     <!-- /.row -->
+
+     <div class="row">
+         <div class="col-lg-12">
+         	
+             
+         
+             <div class="panel panel-default">
+                 <div class="panel-heading">
+                     <h3 class="panel-title"><i class="fa fa-bar-chart-o fa-fw"></i>Employees </h3>
+                     
+                 </div>
+               
+                 <div class="panel-body">
+                    <div class="panel panel-default">
+                    
+	                 	<form id="form-filter" method="post" action="">
+	                 		{% csrf_token %}
+	                	  	<div id="sandbox-container">
+								DOB: <input name ="dob" type="text" id="dob-date-pick">
+								<button type="button" class="btn btn-default"  id="filter-btn">Filter</button>
+							</div>
+							
+						</form>
+					</div>
+                        <div class="table-responsive">
+                        	
+				            
+                            <table id="emp-tbl" class="tablesorter">
+                                <thead>
+                                    <tr>
+                                        <th>EmpID</th>
+                                        <th>Name</th>
+                                        <th>Pan Number</th>
+                                        <th>DOB</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                {% for emp in employees%}
+                                    <tr class="active">
+                                    	<td>{{emp.employe_id}}</td>
+                                        <td>{{emp.first_name}} {{emp.last_name}}</td>
+                                        <td>{{emp.pan}}</td>
+                                        <td>{{emp.dob}}</td>
+                                    </tr>
+                                 {% endfor %}  
+                                 
+                                </tbody>
+                            </table>
+                        </div>                     
+                 </div>
+             </div>
+         </div>
+     </div>
+     <!-- /.row -->
+
+     <div class="row">
+         <div class="col-lg-4">
+             
+         </div>
+         <div class="col-lg-4">
+             
+         </div>
+         <div class="col-lg-4">
+             
+         </div>
+     </div>
+     <!-- /.row -->
+
+ </div>
+ <!-- /.container-fluid -->
+
+{% endblock %}
+{% block extra-scripts %}
+<script src="/static/js/bootstrap-datepicker.js"></script>
+<script>
+    	$("#nva-pay-kseb-dash").addClass('active');
+	    $('#sandbox-container input').datepicker({
+	        format: "dd-mm-yyyy",
+	        startView: 1
+	        });
+	    $("#emp-tbl").tablesorter(); 
+	    
+	    $('#filter-btn').click(function () {
+	    	postdata=$("#form-filter").serializeArray()
+	    	//console.log(postdata)
+	    	
+	    	$.ajax({url:"empfilter/",
+	    		    type: "POST",
+	    		    dataType: "text",
+	    		    data:postdata,
+	    			success:function(result){
+	    				$("#emp-tbl tbody").html(result);
+	    				$("#emp-tbl").trigger("update");
+	    				
+	    	  }});
+	      });
+    	
+</script>
+{% endblock %}

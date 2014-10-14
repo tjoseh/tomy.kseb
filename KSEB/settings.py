@@ -12,8 +12,8 @@ https://docs.djangoproject.com/en/1.6/ref/settings/
 import os
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
-BASE_DIR = os.environ.get('KSEB', '/Volumes/Macintosh HD 2/workspace/KSEB/KSEB')
-#BASE_DIR=BASE_DIR+"/KSEB/"
+#BASE_DIR = os.environ.get('KSEB', '/Volumes/Macintosh HD 2/workspace/KSEB/KSEB')
+BASE_DIR=BASE_DIR+"/KSEB/"
 STATIC_DOC_ROOT=BASE_DIR
 #STATIC_ROOT = STATIC_DOC_ROOT+'/static/'
 MEDIA_ROOT = STATIC_DOC_ROOT+'/'
@@ -31,9 +31,9 @@ STATICFILES_FINDERS = (
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
-    
-#     'django.template.loaders.eggs.Loader',
-)
+   ) 
+
+
 from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.6/howto/deployment/checklist/
@@ -63,10 +63,6 @@ INSTALLED_APPS = (
     # Uncomment the next line to enable admin documentation:
     'django.contrib.admin',
     'django.contrib.admindocs',
-    'django.contrib.auth', 
-    'django.contrib.contenttypes', 
-    'django.contrib.messages',
-    'django.contrib.sessions',
     'HelloWorldApp',
     'payroll',
 )
@@ -133,5 +129,5 @@ TEMPLATE_DIRS = (
     # Put strings here, like "/home/html/django_templates" or "C:/www/django/templates".
     # Always use forward slashes, even on Windows.
     # Don't forget to use absolute paths, not relative paths.
-    BASE_DIR + '/templates'
+    BASE_DIR + '/templates',
 )
